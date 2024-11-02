@@ -52,7 +52,7 @@ public class ConnectionFactory {
 
     public Connection getConexao() {
         try {
-            if (this.conexao != null && this.conexao.isClosed()){
+            if (this.conexao != null && !this.conexao.isClosed()){
                 return this.conexao;
             }
             if (this.getDriver() == null || this.getDriver().isEmpty()){

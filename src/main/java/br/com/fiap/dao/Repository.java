@@ -6,6 +6,7 @@ public abstract class Repository {
     protected Connection connection;
 
     public Repository() {
+
         getConnection();
     }
 
