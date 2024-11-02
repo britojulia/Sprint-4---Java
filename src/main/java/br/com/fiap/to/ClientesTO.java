@@ -1,12 +1,15 @@
 package br.com.fiap.to;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 public class ClientesTO {
     private Long id_cliente;
-    private String nome;
-    private String cpf;
+    @NotBlank private String nome;
+    @NotNull private String cpf;
     private Long telefone;
-    private String email;
-    private String senha;
+    @NotBlank private String email;
+    @NotBlank private String senha;
 
     public ClientesTO() {
     }

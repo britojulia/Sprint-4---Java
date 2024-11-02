@@ -59,4 +59,60 @@ public class ClientesDAO extends Repository{
         return cliente;
     }
 
+    public ClientesTO save (ClientesTO  cliente){
+        String sql = "insert into clientes (nome, cpf, telefone, email, senha) values(?, ?, ?, ?, ?)";
+        try(PreparedStatement ps = getConnection().prepareStatement(sql)){
+            ps.setString(1, cliente.getNome());
+            ps.setString(2, cliente.getCpf());
+            ps.setLong(3, cliente.getTelefone());
+            ps.setString(4, cliente.getEmail());
+            ps.setString(5, cliente.getSenha());
+            if (ps.executeUpdate() > 0){
+                return cliente;
+            } else {
+                return null;
+            }
+        } catch (SQLException e){
+            System.out.println("Erro ao salvar" + e.getMessage());
+        } finally {
+            closeConnection();
+        }
+        return null;
+    }
+
+    public boolean delete(Long id_cliente{
+        String sql = "delete from clientes where id_cliente = ?";
+        try (PreparedStatement ps = getConnection().prepareStatement(sql)){
+            ps.setLong(1, id_cliente);
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e){
+            System.out.println("Erro ao excluir " + e.getMessage());
+        } finally {
+            closeConnection();
+        }
+        return false;
+    }
+
+    public ClientesTO update(ClientesTO cliente){
+        String sql = "update clientes set nome=?, cpf=?, telefone=?, email=?, senha=? where id_cliente=?";
+        try (PreparedStatement ps = getConnection().prepareStatement(sql)){
+            ps.setString(1, cliente.getNome());
+            ps.setString(2, cliente.getCpf());
+            ps.setLong(3, cliente.getTelefone());
+            ps.setString(4, cliente.getEmail());
+            ps.setString(5, cliente.getSenha());
+            ps.setLong(6, cliente.getId_cliente());
+            if (ps.executeUpdate() > 0){
+                return cliente;
+            } else {
+                return null;
+            }
+        } catch (SQLException e){
+            System.out.println("Erro ao atualizar " + e.getMessage());
+        } finally {
+            closeConnection();
+        }
+        return null;
+    }
+
 }
