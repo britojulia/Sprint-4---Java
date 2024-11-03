@@ -6,7 +6,7 @@ public class AgendametoTO {
 
     private Long id_agendamento;
     private LocalDate data_agendamento;
-    private String tipo_serviço;
+    private String tipo_servico;
     private String status;
     private String cpf;
     private String placa;
@@ -14,10 +14,10 @@ public class AgendametoTO {
     public AgendametoTO() {
     }
 
-    public AgendametoTO(Long id_agendamento, LocalDate data_agendamento, String tipo_serviço, String status, String cpf, String placa) {
+    public AgendametoTO(Long id_agendamento, LocalDate data_agendamento, String tipo_servico, String status, String cpf, String placa) {
         this.id_agendamento = id_agendamento;
         this.data_agendamento = data_agendamento;
-        this.tipo_serviço = tipo_serviço;
+        this.tipo_servico = tipo_servico;
         this.status = status;
         this.cpf = cpf;
         this.placa = placa;
@@ -39,12 +39,12 @@ public class AgendametoTO {
         this.data_agendamento = data_agendamento;
     }
 
-    public String getTipo_serviço() {
-        return tipo_serviço;
+    public String getTipo_servico() {
+        return tipo_servico;
     }
 
-    public void setTipo_serviço(String tipo_serviço) {
-        this.tipo_serviço = tipo_serviço;
+    public void setTipo_servico(String tipo_servico) {
+        this.tipo_servico = tipo_servico;
     }
 
     public String getStatus() {
