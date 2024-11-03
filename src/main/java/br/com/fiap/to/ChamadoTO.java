@@ -1,12 +1,16 @@
 package br.com.fiap.to;
 
+import jakarta.validation.constraints.FutureOrPresent;
+import jakarta.validation.constraints.NotNull;
+
 import java.time.LocalDate;
 
 public class ChamadoTO {
 
-    private Long id_chamado;
+    @NotNull private Long id_chamado;
     private String descricao;
-    private String tipo_servico;
+    @NotNull private String tipo_servico;
+    @NotNull @FutureOrPresent
     private LocalDate data_chamado;
     private String cpf;
 

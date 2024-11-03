@@ -1,15 +1,19 @@
 package br.com.fiap.to;
 
+import jakarta.validation.constraints.FutureOrPresent;
+import jakarta.validation.constraints.NotNull;
+
 import java.time.LocalDate;
 
 public class AgendametoTO {
 
-    private Long id_agendamento;
+    @NotNull private Long id_agendamento;
+    @NotNull @FutureOrPresent
     private LocalDate data_agendamento;
-    private String tipo_servico;
+    @NotNull private String tipo_servico;
     private String status;
-    private String cpf;
-    private String placa;
+    @NotNull private String cpf;
+    @NotNull private String placa;
 
     public AgendametoTO() {
     }

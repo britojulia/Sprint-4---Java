@@ -1,11 +1,13 @@
 package br.com.fiap.to;
 
+import jakarta.validation.constraints.NotNull;
+
 public class VeiculosTO {
-    private String placa;
-    private String modelo;
+    @NotNull private String placa;
+    @NotNull private String modelo;
     private String cor;
-    private String marca;
-    private String cpf;
+    @NotNull private String marca;
+    @NotNull private String cpf;
 
     public VeiculosTO() {
     }
