@@ -36,7 +36,7 @@ public class VeiculosDAO extends Repository{
     }
 
     public VeiculosTO findByCodigo(String placa) {
-        VeiculosTO veiculo = null;
+        VeiculosTO veiculo = new VeiculosTO();
         String sql = "select placa, modelo, cor, marca, cpf from veiculos where placa = ?";
         try (PreparedStatement ps = getConnection().prepareStatement(sql)) {
             ps.setString(1, placa);
