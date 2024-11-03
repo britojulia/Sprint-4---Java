@@ -1,31 +1,21 @@
 package br.com.fiap.to;
 
 public class VeiculosTO {
-    private Long id_veiculo;
     private String placa;
     private String modelo;
     private String cor;
     private String marca;
-    private Long id_cliente;
+    private String cpf;
 
     public VeiculosTO() {
     }
 
-    public VeiculosTO(Long id_veiculo, String placa, String modelo, String cor, String marca, Long id_cliente) {
-        this.id_veiculo = id_veiculo;
+    public VeiculosTO(String placa, String modelo, String cor, String marca, String cpf) {
         this.placa = placa;
         this.modelo = modelo;
         this.cor = cor;
         this.marca = marca;
-        this.id_cliente = id_cliente;
-    }
-
-    public Long getId_veiculo() {
-        return id_veiculo;
-    }
-
-    public void setId_veiculo(Long id_veiculo) {
-        this.id_veiculo = id_veiculo;
+        this.cpf = cpf;
     }
 
     public String getPlaca() {
@@ -60,11 +50,11 @@ public class VeiculosTO {
         this.marca = marca;
     }
 
-    public Long getId_cliente() {
-        return id_cliente;
+    public String getCpf() {
+        return cpf;
     }
 
-    public void setId_cliente(Long id_cliente) {
-        this.id_cliente = id_cliente;
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 }

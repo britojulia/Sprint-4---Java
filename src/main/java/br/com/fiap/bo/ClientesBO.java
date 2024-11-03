@@ -14,10 +14,10 @@ public class ClientesBO {
         return clientesDAO.findAll();
     }
 
-    public ClientesTO findByCodigo(long id_cliente){
+    public ClientesTO findByCodigo(String cpf){
         clientesDAO = new ClientesDAO();
         //regras de negocio
-        return clientesDAO.findByCodigo(id_cliente);
+        return clientesDAO.findByCodigo(cpf);
     }
 
     public ClientesTO save(ClientesTO cliente){
@@ -32,10 +32,10 @@ public class ClientesBO {
         return clientesDAO.update(cliente);
     }
 
-    public Boolean delete(Long id_cliente){
+    public Boolean delete(String cpf){
         clientesDAO = new ClientesDAO();
         //regras de negocio
-        return clientesDAO.delete(id_cliente);
+        return clientesDAO.delete(cpf);
     }
 
 }

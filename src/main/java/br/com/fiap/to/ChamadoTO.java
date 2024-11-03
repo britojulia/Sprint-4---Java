@@ -8,17 +8,17 @@ public class ChamadoTO {
     private String descricao;
     private String tipo_servico;
     private LocalDate data_chamado;
-    private Long id_cliente;
+    private String cpf;
 
     public ChamadoTO() {
     }
 
-    public ChamadoTO(Long id_chamado, String descricao, String tipo_servico, LocalDate data_chamado, Long id_cliente) {
-        this.id_chamado = id_chamado;
-        this.descricao = descricao;
-        this.tipo_servico = tipo_servico;
+    public ChamadoTO(String cpf, LocalDate data_chamado, String tipo_servico, String descricao, Long id_chamado) {
+        this.cpf = cpf;
         this.data_chamado = data_chamado;
-        this.id_cliente = id_cliente;
+        this.tipo_servico = tipo_servico;
+        this.descricao = descricao;
+        this.id_chamado = id_chamado;
     }
 
     public Long getId_chamado() {
@@ -53,11 +53,11 @@ public class ChamadoTO {
         this.data_chamado = data_chamado;
     }
 
-    public Long getId_cliente() {
-        return id_cliente;
+    public String getCpf() {
+        return cpf;
     }
 
-    public void setId_cliente(Long id_cliente) {
-        this.id_cliente = id_cliente;
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 }

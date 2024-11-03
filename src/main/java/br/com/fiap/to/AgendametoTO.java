@@ -8,19 +8,19 @@ public class AgendametoTO {
     private LocalDate data_agendamento;
     private String tipo_serviço;
     private String status;
-    private Long id_cliente;
-    private Long id_veiculo;
+    private String cpf;
+    private String placa;
 
     public AgendametoTO() {
     }
 
-    public AgendametoTO(Long id_agendamento, LocalDate data_agendamento, String tipo_serviço, String status, Long id_cliente, Long id_veiculo) {
+    public AgendametoTO(Long id_agendamento, LocalDate data_agendamento, String tipo_serviço, String status, String cpf, String placa) {
         this.id_agendamento = id_agendamento;
         this.data_agendamento = data_agendamento;
         this.tipo_serviço = tipo_serviço;
         this.status = status;
-        this.id_cliente = id_cliente;
-        this.id_veiculo = id_veiculo;
+        this.cpf = cpf;
+        this.placa = placa;
     }
 
     public Long getId_agendamento() {
@@ -55,19 +55,19 @@ public class AgendametoTO {
         this.status = status;
     }
 
-    public Long getId_cliente() {
-        return id_cliente;
+    public String getCpf() {
+        return cpf;
     }
 
-    public void setId_cliente(Long id_cliente) {
-        this.id_cliente = id_cliente;
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 
-    public Long getId_veiculo() {
-        return id_veiculo;
+    public String getPlaca() {
+        return placa;
     }
 
-    public void setId_veiculo(Long id_veiculo) {
-        this.id_veiculo = id_veiculo;
+    public void setPlaca(String placa) {
+        this.placa = placa;
     }
 }

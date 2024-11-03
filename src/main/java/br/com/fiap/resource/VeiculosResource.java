@@ -1,7 +1,8 @@
 package br.com.fiap.resource;
 
-import br.com.fiap.bo.ClientesBO;
+import br.com.fiap.bo.VeiculosBO;
 import br.com.fiap.to.ClientesTO;
+import br.com.fiap.to.VeiculosTO;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -9,14 +10,14 @@ import jakarta.ws.rs.core.Response;
 
 import java.util.ArrayList;
 
-@Path("/guardianshields")
-public class ClientesResource {
-    private ClientesBO clientesBO = new ClientesBO();
+@Path("/guardianshields/veiculo")
+public class VeiculosResource {
+    private VeiculosBO veiculosBO = new VeiculosBO();
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response findAll() {
-        ArrayList<ClientesTO> resultado = clientesBO.findAll();
+        ArrayList<VeiculosTO> resultado = veiculosBO.findAll();
         Response.ResponseBuilder response = null;
         if (resultado != null){
             response = Response.ok(); //codigo 200 - OK
@@ -30,8 +31,8 @@ public class ClientesResource {
     @GET
     @Path("/{cpf}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response findByCodigo(@PathParam("cpf") String cpf){
-        ClientesTO resultado = clientesBO.findByCodigo(cpf);
+    public Response findByCodigo(@PathParam("placa") String placa){
+        VeiculosTO resultado = veiculosBO.findByCodigo(placa);
         Response.ResponseBuilder response = null;
         if (resultado != null){
             response = Response.ok(); // codigo 200 - ok
@@ -44,8 +45,8 @@ public class ClientesResource {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response save(@Valid ClientesTO cliente){
-        ClientesTO resultado = clientesBO.save(cliente);
+    public Response save(@Valid VeiculosTO veiculo){
+        VeiculosTO resultado = veiculosBO.save(veiculo);
         Response.ResponseBuilder response = null;
         if (resultado != null){
             response = Response.created(null); // codigo 201 - create
@@ -57,11 +58,11 @@ public class ClientesResource {
     }
 
     @PUT
-    @Path("{/cpf}")
+    @Path("{/placa}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response update(@Valid ClientesTO cliente, @PathParam("cpf") String cpf){
-        cliente.setCpf(cpf);
-        ClientesTO resultado = clientesBO.update(cliente);
+    public Response update(@Valid VeiculosTO veiculo, @PathParam("placa") String placa){
+        veiculo.setPlaca(placa);
+        VeiculosTO resultado = veiculosBO.update(veiculo);
         Response.ResponseBuilder response = null;
         if (resultado != null){
             response = Response.created(null); // codigo 201 - create
@@ -73,14 +74,15 @@ public class ClientesResource {
     }
 
     @DELETE
-    @Path("{/cpf}")
-    public Response delete(@PathParam("cpf") String cpf){
+    @Path("{/placa}")
+    public Response delete(@PathParam("placa") String placa){
         Response.ResponseBuilder response = null;
-        if (clientesBO.delete(cpf)){
+        if (veiculosBO.delete(placa)){
             response = Response.status(204); // codigo 204 - no content
         } else {
             response = Response.status(404); // codigo 404 - not found
         }
         return response.build();
     }
+
 }

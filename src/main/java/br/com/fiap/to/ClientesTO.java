@@ -4,47 +4,42 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 public class ClientesTO {
-    private Long id_cliente;
-    @NotBlank private String nome;
-    @NotNull private String cpf;
+
+    @NotNull
+    private String cpf;
+    @NotBlank
+    private String nome;
     private Long telefone;
-    @NotBlank private String email;
-    @NotBlank private String senha;
+    @NotBlank
+    private String email;
+    @NotBlank
+    private String senha;
 
     public ClientesTO() {
     }
 
-    public ClientesTO(Long id_cliente, String nome, String cpf, Long telefone, String email, String senha) {
-        this.id_cliente = id_cliente;
-        this.nome = nome;
+    public ClientesTO(String cpf, String nome, Long telefone, String email, String senha) {
         this.cpf = cpf;
+        this.nome = nome;
         this.telefone = telefone;
         this.email = email;
         this.senha = senha;
     }
 
-    public Long getId_cliente() {
-        return id_cliente;
-    }
-
-    public void setId_cliente(Long id_cliente) {
-        this.id_cliente = id_cliente;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getCpf() {
+    public @NotNull String getCpf() {
         return cpf;
     }
 
-    public void setCpf(String cpf) {
+    public void setCpf(@NotNull String cpf) {
         this.cpf = cpf;
+    }
+
+    public @NotBlank String getNome() {
+        return nome;
+    }
+
+    public void setNome(@NotBlank String nome) {
+        this.nome = nome;
     }
 
     public Long getTelefone() {
@@ -55,19 +50,20 @@ public class ClientesTO {
         this.telefone = telefone;
     }
 
-    public String getEmail() {
+    public @NotBlank String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
+    public void setEmail(@NotBlank String email) {
         this.email = email;
     }
 
-    public String getSenha() {
+    public @NotBlank String getSenha() {
         return senha;
     }
 
-    public void setSenha(String senha) {
+    public void setSenha(@NotBlank String senha) {
         this.senha = senha;
     }
 }
+

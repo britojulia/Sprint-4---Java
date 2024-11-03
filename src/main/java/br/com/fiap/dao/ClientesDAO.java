@@ -10,15 +10,14 @@ import java.util.ArrayList;
 public class ClientesDAO extends Repository{
     public ArrayList<ClientesTO> findAll(){
         ArrayList<ClientesTO> clientes = new ArrayList<ClientesTO>();
-        String sql = "select * from clientes order by id_cliente";
+        String sql = "select * from clientes order by cpf";
         try (PreparedStatement ps = getConnection().prepareStatement(sql)){
             ResultSet rs = ps.executeQuery();
             if (rs != null) {
                 while (rs.next()){
                     ClientesTO cliente = new ClientesTO();
-                    cliente.setId_cliente(rs.getLong("id_cliente"));
-                    cliente.setNome(rs.getString("nome"));
                     cliente.setCpf(rs.getString("cpf"));
+                    cliente.setNome(rs.getString("nome"));
                     cliente.setTelefone(rs.getLong("telefone"));
                     cliente.setEmail(rs.getString("email"));
                     cliente.setSenha(rs.getString("senha"));
@@ -35,16 +34,15 @@ public class ClientesDAO extends Repository{
         return clientes;
     }
 
-    public ClientesTO findByCodigo(Long id_cliente){
+    public ClientesTO findByCodigo(String cpf){
         ClientesTO cliente = new ClientesTO();
-        String sql = "select * from clientes where id_cliente = ?";
+        String sql = "select * from clientes where cpf = ?";
         try (PreparedStatement ps = getConnection().prepareStatement(sql)){
-            ps.setLong(1, id_cliente);
+            ps.setString(1, cpf);
             ResultSet rs = ps.executeQuery();
             if (rs.next()){
-                cliente.setId_cliente(rs.getLong("id_cliente"));
-                cliente.setNome(rs.getString("nome"));
                 cliente.setCpf(rs.getString("cpf"));
+                cliente.setNome(rs.getString("nome"));
                 cliente.setTelefone(rs.getLong("telefone"));
                 cliente.setEmail(rs.getString("email"));
                 cliente.setSenha(rs.getString("senha"));
@@ -59,11 +57,11 @@ public class ClientesDAO extends Repository{
         return cliente;
     }
 
-    public ClientesTO save (ClientesTO  cliente){
-        String sql = "insert into clientes (nome, cpf, telefone, email, senha) values(?, ?, ?, ?, ?)";
+    public ClientesTO save (ClientesTO cliente){
+        String sql = "insert into clientes (cpf, nome, telefone, email, senha) values(?, ?, ?, ?, ?)";
         try(PreparedStatement ps = getConnection().prepareStatement(sql)){
-            ps.setString(1, cliente.getNome());
-            ps.setString(2, cliente.getCpf());
+            ps.setString(1, cliente.getCpf());
+            ps.setString(2, cliente.getNome());
             ps.setLong(3, cliente.getTelefone());
             ps.setString(4, cliente.getEmail());
             ps.setString(5, cliente.getSenha());
@@ -80,10 +78,10 @@ public class ClientesDAO extends Repository{
         return null;
     }
 
-    public boolean delete(Long id_cliente{
-        String sql = "delete from clientes where id_cliente = ?";
+    public boolean delete(String cpf){
+        String sql = "delete from clientes where cpf = ?";
         try (PreparedStatement ps = getConnection().prepareStatement(sql)){
-            ps.setLong(1, id_cliente);
+            ps.setString(1, cpf);
             return ps.executeUpdate() > 0;
         } catch (SQLException e){
             System.out.println("Erro ao excluir " + e.getMessage());
@@ -94,14 +92,13 @@ public class ClientesDAO extends Repository{
     }
 
     public ClientesTO update(ClientesTO cliente){
-        String sql = "update clientes set nome=?, cpf=?, telefone=?, email=?, senha=? where id_cliente=?";
+        String sql = "update clientes set nome=?, telefone=?, email=?, senha=? where cpf=?";
         try (PreparedStatement ps = getConnection().prepareStatement(sql)){
             ps.setString(1, cliente.getNome());
-            ps.setString(2, cliente.getCpf());
-            ps.setLong(3, cliente.getTelefone());
-            ps.setString(4, cliente.getEmail());
-            ps.setString(5, cliente.getSenha());
-            ps.setLong(6, cliente.getId_cliente());
+            ps.setLong(2, cliente.getTelefone());
+            ps.setString(3, cliente.getEmail());
+            ps.setString(4, cliente.getSenha());
+            ps.setString(5, cliente.getCpf());
             if (ps.executeUpdate() > 0){
                 return cliente;
             } else {
@@ -114,5 +111,6 @@ public class ClientesDAO extends Repository{
         }
         return null;
     }
+
 
 }
