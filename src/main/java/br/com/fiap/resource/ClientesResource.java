@@ -9,7 +9,7 @@ import jakarta.ws.rs.core.Response;
 
 import java.util.ArrayList;
 
-@Path("/guardianshields")
+@Path("/guardianshields/clientes")
 public class ClientesResource {
     private ClientesBO clientesBO = new ClientesBO();
 

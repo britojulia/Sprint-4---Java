@@ -10,7 +10,7 @@ import jakarta.ws.rs.core.Response;
 
 import java.util.ArrayList;
 
-@Path("/guardianshields/veiculo")
+@Path("/guardianshields/veiculos")
 public class VeiculosResource {
     private VeiculosBO veiculosBO = new VeiculosBO();
 
