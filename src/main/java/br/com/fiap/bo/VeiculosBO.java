@@ -11,31 +11,37 @@ public class VeiculosBO {
 
     public ArrayList<VeiculosTO> findAll(){
         veiculosDAO = new VeiculosDAO();
-        //regras de negocio
         return veiculosDAO.findAll();
     }
 
     public VeiculosTO findByCodigo(String placa){
         veiculosDAO = new VeiculosDAO();
-        //regras de negocio
         return veiculosDAO.findByCodigo(placa);
     }
 
     public VeiculosTO save(VeiculosTO veiculo){
         veiculosDAO = new VeiculosDAO();
-        //regras de negocio
+        //valida se a placa do carro é do formato brasileiro aaa1a11
+        if (veiculo.getPlaca() == null || !veiculo.getPlaca().matches("[A-Z]{3}\\d[A-Z]\\d{2}")) {
+            System.out.println("Placa inválida. A placa deve seguir o formato AAA1A11.");
+            return null;
+        }
         return veiculosDAO.save(veiculo);
     }
 
     public VeiculosTO update(VeiculosTO veiculo){
         veiculosDAO = new VeiculosDAO();
-        //regras de negocio
-        return veiculosDAO.update(veiculo);
+        //valida se a placa do carro é do formato brasileiro aaa1a11
+        if (veiculo.getPlaca() == null || !veiculo.getPlaca().matches("[A-Z]{3}\\d[A-Z]\\d{2}")) {
+            System.out.println("Placa inválida. A placa deve seguir o formato AAA1A11.");
+            return null;
+        }
+        return veiculosDAO.save(veiculo);
     }
 
     public Boolean delete(String placa){
         veiculosDAO = new VeiculosDAO();
-        //regras de negocio
         return veiculosDAO.delete(placa);
     }
+
 }

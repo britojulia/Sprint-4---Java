@@ -12,31 +12,36 @@ public class AgendamentoBO {
 
     public ArrayList<AgendametoTO> findAll(){
         agendamentoDAO = new AgendamentoDAO();
-        //regras de negocio
         return agendamentoDAO.findAll();
     }
 
     public AgendametoTO findByCodigo(Long id_agendamento){
         agendamentoDAO = new AgendamentoDAO();
-        //regras de negocio
         return agendamentoDAO.findByCodigo(id_agendamento);
     }
 
     public AgendametoTO save(AgendametoTO agenda){
         agendamentoDAO = new AgendamentoDAO();
-        //regras de negocio
+        //valida se o tipo de serviço pro chamado é valido, e nao apenas uma letra
+        if (agenda.getTipo_servico() == null || agenda.getTipo_servico().length() < 5) {
+            System.out.println("O tipo de serviço é muito curto, precisamos de mais informações.");
+            return null;
+        }
         return agendamentoDAO.save(agenda);
     }
 
     public AgendametoTO update(AgendametoTO agenda){
         agendamentoDAO = new AgendamentoDAO();
-        //regras de negocio
+        //valida se o tipo de serviço pro chamado é valido, e nao apenas uma letra
+        if (agenda.getTipo_servico() == null || agenda.getTipo_servico().length() < 5) {
+            System.out.println("O tipo de serviço é muito curto, precisamos de mais informações.");
+            return null;
+        }
         return agendamentoDAO.update(agenda);
     }
 
     public Boolean delete(Long id_agendamento){
         agendamentoDAO = new AgendamentoDAO();
-        //regras de negocio
         return agendamentoDAO.delete(id_agendamento);
     }
 }
