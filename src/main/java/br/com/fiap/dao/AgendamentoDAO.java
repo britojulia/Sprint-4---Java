@@ -13,7 +13,7 @@ public class AgendamentoDAO extends Repository{
 
     public ArrayList<AgendametoTO> findAll(){
         ArrayList<AgendametoTO> agendas = new ArrayList<AgendametoTO>();
-        String sql = "select id_agendamento, data_agendamento, tipo_servico, status, clientes_cpf, veiculos_placa from agendamento where id_agendamento = ?";
+        String sql = "select id_agendamento, data_agendamento, tipo_servico, status, clientes_cpf, veiculos_placa from agendamento order by id_agendamento";
         try (PreparedStatement ps = getConnection().prepareStatement(sql)){
             ResultSet rs = ps.executeQuery();
             if (rs != null) {
@@ -62,15 +62,13 @@ public class AgendamentoDAO extends Repository{
     }
 
     public AgendametoTO save(AgendametoTO agenda) {
-        String sql = "insert into agendamento (id_agendamento, data_agendamento, tipo_servico, status, clientes_cpf, veiculos_placa) values(?, ?, ?, ?, ?, ?)";
+        String sql = "insert into agendamento ( data_agendamento, tipo_servico, status, clientes_cpf, veiculos_placa) values(?, ?, ?, ?, ?)";
         try (PreparedStatement ps = getConnection().prepareStatement(sql)) {
-            ps.setLong(1, agenda.getId_agendamento());
-            ps.setDate(2, Date.valueOf(agenda.getData_agendamento()));
-            ps.setString(3, agenda.getTipo_servico());
-            ps.setString(4, agenda.getTipo_servico());
-            ps.setString(5, agenda.getCpf());
-            ps.setString(6, agenda.getPlaca());
-
+            ps.setDate(1, Date.valueOf(agenda.getData_agendamento()));
+            ps.setString(2, agenda.getTipo_servico());
+            ps.setString(3, agenda.getStatus());
+            ps.setString(4, agenda.getCpf());
+            ps.setString(5, agenda.getPlaca());
             if (ps.executeUpdate() > 0) {
                 return agenda;
             } else {
@@ -100,12 +98,12 @@ public class AgendamentoDAO extends Repository{
     public AgendametoTO update(AgendametoTO agenda){
         String sql = "update agendamento set data_agendamento=?, tipo_servico=?, status=?, clientes_cpf=?, veiculos_placa=? where id_agendamento=?";
         try (PreparedStatement ps = getConnection().prepareStatement(sql)){
-            ps.setLong(1, agenda.getId_agendamento());
-            ps.setDate(2, Date.valueOf(agenda.getData_agendamento()));
-            ps.setString(3, agenda.getTipo_servico());
-            ps.setString(4, agenda.getTipo_servico());
-            ps.setString(5, agenda.getCpf());
-            ps.setString(6, agenda.getPlaca());
+            ps.setDate(1, Date.valueOf(agenda.getData_agendamento()));
+            ps.setString(2, agenda.getTipo_servico());
+            ps.setString(3, agenda.getStatus());
+            ps.setString(4, agenda.getCpf());
+            ps.setString(5, agenda.getPlaca());
+            ps.setLong(6, agenda.getId_agendamento());
             if (ps.executeUpdate() > 0){
                 return agenda;
             } else {

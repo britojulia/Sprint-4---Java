@@ -36,7 +36,7 @@ public class VeiculosBO {
             System.out.println("Placa inválida. A placa deve seguir o formato AAA1A11.");
             return null;
         }
-        return veiculosDAO.save(veiculo);
+        return veiculosDAO.update(veiculo);
     }
 
     public Boolean delete(String placa){

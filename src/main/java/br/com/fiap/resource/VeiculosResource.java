@@ -29,7 +29,7 @@ public class VeiculosResource {
     }
 
     @GET
-    @Path("/{cpf}")
+    @Path("/{placa}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response findByCodigo(@PathParam("placa") String placa){
         VeiculosTO resultado = veiculosBO.findByCodigo(placa);

@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class VeiculosDAO extends Repository{
     public ArrayList<VeiculosTO> findAll(){
         ArrayList<VeiculosTO> veiculos = new ArrayList<VeiculosTO>();
-        String sql = "select placa, modelo, cor, marca, cpf_cliente from veiculos order by placa";
+        String sql = "select placa, modelo, cor, marca, clientes_cpf from veiculos order by placa";
         try (PreparedStatement ps = getConnection().prepareStatement(sql)){
             ResultSet rs = ps.executeQuery();
             if (rs != null) {
@@ -21,7 +21,7 @@ public class VeiculosDAO extends Repository{
                     veiculo.setModelo(rs.getString("modelo"));
                     veiculo.setCor(rs.getString("cor"));
                     veiculo.setMarca(rs.getString("marca"));
-                    veiculo.setCpf(rs.getString("cpf_cliente"));
+                    veiculo.setCpf(rs.getString("clientes_cpf"));
                     veiculos.add(veiculo);
                 }
             } else {
@@ -37,18 +37,19 @@ public class VeiculosDAO extends Repository{
 
     public VeiculosTO findByCodigo(String placa) {
         VeiculosTO veiculo = new VeiculosTO();
-        String sql = "select placa, modelo, cor, marca, cpf_cliente from veiculos where placa = ?";
+        String sql = "select placa, modelo, cor, marca, clientes_cpf from veiculos where placa = ?";
         try (PreparedStatement ps = getConnection().prepareStatement(sql)) {
             ps.setString(1, placa);
             ResultSet rs = ps.executeQuery();
-
             if (rs.next()) {
                 veiculo = new VeiculosTO();
                 veiculo.setPlaca(rs.getString("placa"));
                 veiculo.setModelo(rs.getString("modelo"));
                 veiculo.setCor(rs.getString("cor"));
                 veiculo.setMarca(rs.getString("marca"));
-                veiculo.setCpf(rs.getString("cpf_cliente"));
+                veiculo.setCpf(rs.getString("clientes_cpf"));
+            } else {
+                return null;
             }
         } catch (SQLException e) {
             System.out.println("Erro na consulta: " + e.getMessage());
@@ -59,14 +60,13 @@ public class VeiculosDAO extends Repository{
     }
 
     public VeiculosTO save(VeiculosTO veiculo) {
-        String sql = "insert into veiculos (placa, modelo, cor, marca, cpf_cliente) values(?, ?, ?, ?, ?)";
+        String sql = "insert into veiculos (placa, modelo, cor, marca, clientes_cpf) values(?, ?, ?, ?, ?)";
         try (PreparedStatement ps = getConnection().prepareStatement(sql)) {
             ps.setString(1, veiculo.getPlaca());
             ps.setString(2, veiculo.getModelo());
             ps.setString(3, veiculo.getCor());
             ps.setString(4, veiculo.getMarca());
             ps.setString(5, veiculo.getCpf());
-
             if (ps.executeUpdate() > 0) {
                 return veiculo;
             } else {
@@ -99,6 +99,7 @@ public class VeiculosDAO extends Repository{
             ps.setString(1, veiculo.getModelo());
             ps.setString(2, veiculo.getCor());
             ps.setString(3, veiculo.getMarca());
+            ps.setString(4, veiculo.getPlaca());
             if (ps.executeUpdate() > 0){
                 return veiculo;
             } else {

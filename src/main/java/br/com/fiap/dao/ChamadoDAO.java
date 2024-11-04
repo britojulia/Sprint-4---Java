@@ -13,14 +13,14 @@ public class ChamadoDAO extends Repository{
 
     public ArrayList<ChamadoTO> findAll(){
         ArrayList<ChamadoTO> chamados = new ArrayList<ChamadoTO>();
-        String sql = "select id_chamado, descricao, tipo_servico, data_chamado, clientes_cpf from chamado where id_chamado = ?";
+        String sql = "select id_chamado, descricao, tipo_servico, data_chamado, clientes_cpf from chamado order by id_chamado";
         try (PreparedStatement ps = getConnection().prepareStatement(sql)){
             ResultSet rs = ps.executeQuery();
             if (rs != null) {
                 while (rs.next()){
                     ChamadoTO chamado = new ChamadoTO();
                     chamado.setId_chamado(rs.getLong("id_chamado"));
-                    chamado.setDescricao(rs.getString("descricacao"));
+                    chamado.setDescricao(rs.getString("descricao"));
                     chamado.setTipo_servico(rs.getString("tipo_servico"));
                     chamado.setData_chamado(rs.getDate("data_chamado").toLocalDate());
                     chamado.setCpf(rs.getString("clientes_cpf"));
@@ -43,14 +43,14 @@ public class ChamadoDAO extends Repository{
         try (PreparedStatement ps = getConnection().prepareStatement(sql)) {
             ps.setLong(1, id_chamado);
             ResultSet rs = ps.executeQuery();
-
             if (rs.next()) {
-                chamado = new ChamadoTO();
                 chamado.setId_chamado(rs.getLong("id_chamado"));
                 chamado.setDescricao(rs.getString("descricao"));
                 chamado.setTipo_servico(rs.getString("tipo_servico"));
                 chamado.setData_chamado(rs.getDate("data_chamado").toLocalDate());
                 chamado.setCpf(rs.getString("clientes_cpf"));
+            } else {
+                return null;
             }
         } catch (SQLException e) {
             System.out.println("Erro na consulta: " + e.getMessage());
@@ -61,14 +61,12 @@ public class ChamadoDAO extends Repository{
     }
 
     public ChamadoTO save(ChamadoTO chamado) {
-        String sql = "insert into chamado (id_chamado, descricao, tipo_servico, data_chamado, clientes_cpf) values(?, ?, ?, ?, ?)";
+        String sql = "insert into chamado (descricao, tipo_servico, data_chamado, clientes_cpf) values( ?, ?, ?, ?)";
         try (PreparedStatement ps = getConnection().prepareStatement(sql)) {
-            ps.setLong(1, chamado.getId_chamado());
-            ps.setString(2, chamado.getDescricao());
-            ps.setString(3, chamado.getTipo_servico());
-            ps.setDate(4, Date.valueOf(chamado.getData_chamado()));
-            ps.setString(5, chamado.getCpf());
-
+            ps.setString(1, chamado.getDescricao());
+            ps.setString(2, chamado.getTipo_servico());
+            ps.setDate(3, Date.valueOf(chamado.getData_chamado()));
+            ps.setString(4, chamado.getCpf());
             if (ps.executeUpdate() > 0) {
                 return chamado;
             } else {
@@ -98,11 +96,11 @@ public class ChamadoDAO extends Repository{
     public ChamadoTO update(ChamadoTO chamado){
         String sql = "update chamado set descricao=?, tipo_servico=?, data_chamado=?, clientes_cpf=? where id_chamado=?";
         try (PreparedStatement ps = getConnection().prepareStatement(sql)){
-            ps.setLong(1, chamado.getId_chamado());
-            ps.setString(2, chamado.getDescricao());
-            ps.setString(3, chamado.getTipo_servico());
-            ps.setDate(4, Date.valueOf(chamado.getData_chamado()));
-            ps.setString(5, chamado.getCpf());
+            ps.setString(1, chamado.getDescricao());
+            ps.setString(2, chamado.getTipo_servico());
+            ps.setDate(3, Date.valueOf(chamado.getData_chamado()));
+            ps.setString(4, chamado.getCpf());
+            ps.setLong(5, chamado.getId_chamado());
             if (ps.executeUpdate() > 0){
                 return chamado;
             } else {
